@@ -3,8 +3,9 @@
 @inject NavigationManager NavigationManager
 @inject OrderState OrderState
 
+@layout MainLayout
+
 <div class="main">
-  <h1>Blazing Pizzas</h1>
   <ul class="pizza-cards">
     @if (specials != null)
     {
@@ -29,10 +30,10 @@
       OnCancel="OrderState.CancelConfigurePizzaDialog"
       OnConfirm="OrderState.ConfirmConfigurePizzaDialog" />
 }
+<div>
 
-<div class="sidebar">
     @if (order.Pizzas.Any())
-    {
+    {<div class="sidebar">
         <div class="order-contents">
             <h2>Your order</h2>
 
@@ -47,11 +48,11 @@
               </div>
             }
         </div>
-    }
-    else
+    
+    @* else
     {
         <div class="empty-cart">Choose a pizza<br>to get started</div>
-    }
+    } *@
 
     <div class="order-total @(order.Pizzas.Any() ? "" : "hidden")">
         Total:
@@ -61,7 +62,8 @@
         </a>
     </div>
 </div>
-
+}
+</div>
 @code {
   List<PizzaSpecial> specials = new List<PizzaSpecial>();
   Order order => OrderState.Order;
